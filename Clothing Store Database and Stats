@@ -1,0 +1,34 @@
+--Create a clothing store database
+
+CREATE TABLE Pookies (id INTEGER PRIMARY KEY, item TEXT, color TEXT, size TEXT, price INTEGER, inventory INTEGER);
+INSERT INTO Pookies VALUES (1, "blouse", "blue", "small", 20, 12);
+INSERT INTO Pookies VALUES (2, "pants", "brown", "medium", 40, 5);
+INSERT INTO Pookies VALUES (3, "shoes", "black", "seven", 35, 5);
+INSERT INTO Pookies VALUES (4, "shirt", "purple", "medium", 20, 5);
+INSERT INTO Pookies VALUES (5,"dress", "green", "medium", 20, 5);
+INSERT INTO Pookies VALUES (6, "necklace", "silver", "ONESIZE", 10, 5);
+INSERT INTO Pookies VALUES (7, "leggings", "black", "large", 20, 5);
+INSERT INTO Pookies VALUES (8, "biker shorts", "black", "small", 20,6);
+INSERT INTO Pookies VALUES (9, "jacket", "orange", "large", 10,5);
+INSERT INTO Pookies VALUES (10, "coat", "red", "medium", 60, 3);
+INSERT INTO Pookies VALUES (11, "shorts", "blue", "small", 18,7);
+INSERT INTO Pookies VALUES (12,"bralette", "pink", "small", 25, 5);
+INSERT INTO Pookies VALUES (13, "pants", "black","medium", 25, 10);
+INSERT INTO Pookies VALUES (14, "Sandals", "gray", "nine", 20,10);
+INSERT INTO Pookies VALUES (15,"romper", "tiedye", "small", 25, 5);
+
+
+--display the database grouped by color.
+SELECT * FROM Pookies;
+SELECT color, SUM(inventory) FROM Pookies GROUP BY color;
+
+--What is the average price of pink items?
+SELECT AVG(price) "average price of pink items"
+FROM Pookies
+Where color="pink";
+
+--What are those mose expensive items in the store?
+SELECT item, price "Most Expensive Items"
+FROM Pookies
+order by price desc
+limit 5; 
