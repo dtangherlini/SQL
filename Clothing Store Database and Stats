@@ -1,5 +1,3 @@
---Create a clothing store database
-
 CREATE TABLE Pookies (id INTEGER PRIMARY KEY, item TEXT, color TEXT, size TEXT, price INTEGER, inventory INTEGER);
 INSERT INTO Pookies VALUES (1, "blouse", "blue", "small", 20, 12);
 INSERT INTO Pookies VALUES (2, "pants", "brown", "medium", 40, 5);
@@ -17,18 +15,31 @@ INSERT INTO Pookies VALUES (13, "pants", "black","medium", 25, 10);
 INSERT INTO Pookies VALUES (14, "Sandals", "gray", "nine", 20,10);
 INSERT INTO Pookies VALUES (15,"romper", "tiedye", "small", 25, 5);
 
-
---display the database grouped by color.
 SELECT * FROM Pookies;
+
+
+--FIND THE SUM OF THE INVENTORY OF ITEMS BY COLOR
 SELECT color, SUM(inventory) FROM Pookies GROUP BY color;
 
---What is the average price of pink items?
+--FIND THE AVERAGE PRICE OF PINK ITEMS
 SELECT AVG(price) "average price of pink items"
 FROM Pookies
 Where color="pink";
 
---What are those mose expensive items in the store?
+--MAKE A DESCENDING LIST OF THE ITEMS AND THEIR PRICES
 SELECT item, price "Most Expensive Items"
 FROM Pookies
 order by price desc
 limit 5; 
+
+--FIND THE SELLING STATS 
+SELECT item,price,inventory,
+    CASE
+        WHEN price >=25 AND inventory >=3 THEN "Overpriced"
+        ELSE "Just right"
+        END as "Selling stats"
+        FROM pookies
+        ;
+
+--FIND THE MOST EXPENSIVE ITEM IN THE STORE
+SELECT item, MAX(price),inventory FROM pookies;
