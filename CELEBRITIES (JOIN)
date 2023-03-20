@@ -1,0 +1,71 @@
+/* Create table about the people and what they do here */
+CREATE TABLE celebs (id INTEGER PRIMARY KEY AUTOINCREMENT, fullname TEXT, age INTEGER, rating TEXT);
+INSERT INTO celebs (fullname, age, rating) VALUES ("Ariana Grande", "29", "A");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Mel Gibson", "67", "C");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Selena Gomez", "30", "A");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Jerry Springer", "79", "D");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Britney Spears", "41", "B");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Charlie Sheen", "57", "C");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Marshall Mathers", "50", "A");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Jhonny Depp", "59", "B");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Brendan Fraser", "54", "C");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Leonardo Dicaprio", "48", "C");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Steve Buscemi", "78", "D");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Melissa Joan Hart", "46", "C");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Miley Cyrus", "30", "A");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Demi Lovato", "30", "A");
+INSERT INTO celebs (fullname, age, rating) VALUES ("Mac Miller", "26", "B");
+
+CREATE TABLE interests (id INTEGER PRIMARY KEY AUTOINCREMENT, celeb_id INTEGER, interest_name TEXT);
+INSERT INTO interests (celeb_id, interest_name) VALUES (1, "singing");
+INSERT INTO interests (celeb_id, interest_name) VALUES (2, "directing");
+INSERT INTO interests (celeb_id, interest_name) VALUES (3, "singing");
+INSERT INTO interests (celeb_id, interest_name) VALUES (4, "reality tv");
+INSERT INTO interests (celeb_id, interest_name) VALUES (5, "dancing");
+INSERT INTO interests (celeb_id, interest_name) VALUES (6, "acting");
+INSERT INTO interests (celeb_id, interest_name) VALUES (7, "hip-hop");
+INSERT INTO interests (celeb_id, interest_name) VALUES (8, "pirates");
+INSERT INTO interests (celeb_id, interest_name) VALUES (9, "acting");
+INSERT INTO interests (celeb_id, interest_name) VALUES (10, "acting");
+INSERT INTO interests (celeb_id, interest_name) VALUES (11, "relaxing");
+INSERT INTO interests (celeb_id, interest_name) VALUES (12, "family life");
+INSERT INTO interests (celeb_id, interest_name) VALUES (13, "singing");
+INSERT INTO interests (celeb_id, interest_name) VALUES (14, "singing");
+INSERT INTO interests (celeb_id, interest_name) VALUES (15, "hip-hop");
+
+CREATE TABLE friends (id INTEGER PRIMARY KEY AUTOINCREMENT, friend1_id INTEGER, friend2_id INTEGER);
+INSERT INTO friends (friend1_id, friend2_id) VALUES (1,3);
+INSERT INTO friends (friend1_id, friend2_id) VALUES (3,5);
+INSERT INTO friends (friend1_id, friend2_id) VALUES (7,15);
+INSERT INTO friends (friend1_id, friend2_id) VALUES (1,3);
+INSERT INTO friends (friend1_id, friend2_id) VALUES (8,10);
+INSERT INTO friends (friend1_id, friend2_id) VALUES (13,14);
+INSERT INTO friends (friend1_id, friend2_id) VALUES (3,13);
+
+/*Create a list of celebrity name, age, and interests using the information from mulitple table*/
+
+SELECT celebs.fullname, celebs.age, interests.interest_name FROM celebs 
+LEFT JOIN interests 
+ON celebs.id=interests.celeb_id
+GROUP BY celebs.fullname
+ORDER BY age;
+
+/*Create a list of each celebrity and their friend using information from multiple tables*/
+
+
+SELECT a.fullname as buddy1, a.age, b.fullname as buddy2, b.age FROM friends
+JOIN celebs a
+ON friends.friend1_id=a.id
+JOIN celebs b
+ON friends.friend2_id=b.id;
+
+/*Rate the star power of each celebrity based on their ranking, order the results by the star power of each celebrity*/
+
+Select fullname, age, rating,
+    CASE
+    WHEN rating = "A" THEN "SUPER STAR"
+    WHEN rating = "B" THEN "STAR"
+    ELSE "LOW RATING"
+    END as "STAR POWER"
+FROM celebs
+ORDER BY "STAR POWER" desc;
