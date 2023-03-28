@@ -1,0 +1,65 @@
+## I have complied this list of Queries using a database which lists all the movies and tv shows available on netflix.##
+
+SELECT * 
+FROM netflix_titles.netflix
+;
+/*Find the amount of movies/tv shows available on Netflix*/
+SELECT COUNT(show_id)
+FROM netflix_titles.netflix;
+
+
+/*Find the amount of movies available on Netflix*/
+SELECT COUNT(type)
+FROM netflix_titles.netflix
+WHERE type like '%movie%';
+
+/*Find the amount of shows available on Netflix*/
+SELECT COUNT(type)
+FROM netflix_titles.netflix
+WHERE type like '%tv%';
+
+/* List the movies that have family in the description*/
+SELECT title as Name, description
+FROM netflix_titles.netflix
+WHERE type = "Movie"
+AND description like '%family%' ;
+
+/*list the movies that had Leonardo Dicaprio as a cast member*/
+SELECT title, "cast"
+FROM netflix_titles.netflix
+Where "cast" like '%dicaprio%'
+GROUP BY title;
+
+/*How many movies have Leonardo Dicaprio as a cast member*/
+SELECT count(title) as LEO_Movies
+FROM netflix_titles.netflix
+Where "cast" like '%dicaprio%';
+
+/*How many movies on NEtflix are classified as comedies?*/
+SELECT title, rating,duration,listed_in
+FROM netflix_titles.netflix
+WHERE listed_in like '%comedies%'
+AND type = "Movie";
+
+/*How many of the movies are listed as horror and are Rated R*/
+SELECT title, rating,duration,type, listed_in
+FROM netflix_titles.netflix
+WHERE type = "Movie"
+AND rating = "R"
+AND listed_in like '%horror%'
+;
+
+/*How many horror movies where released in 2020?*/
+SELECT title, release_year,listed_in
+FROM netflix_titles.netflix
+Where release_year = "2020"
+AND listed_in like '%horror%'
+AND type = "Movie" ;
+
+/*How many horror movies where released in 2019?*/
+SELECT title, release_year,listed_in
+FROM netflix_titles.netflix
+Where release_year = "2019"
+AND listed_in like '%horror%' 
+AND type = "Movie";
+
